@@ -1,0 +1,5 @@
+Thread 0|Thread Create(Thread 1|0x00007fffffffdd10|
+Thread 1|Write|0x0000555556a65528| at line 6 in file /home/suraj/LLVM/llvm-project-main/sample.cpp
+Thread 0|Write|0x0000555556a65528| at line 13 in file /home/suraj/LLVM/llvm-project-main/sample.cpp
+Thread 0|Read|0x00007fffffffdd10| at line 14 in file /home/suraj/LLVM/llvm-project-main/sample.cpp
+Thread 0|Join(Thread 1|0x00007ffff40006c0|
