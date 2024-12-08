@@ -136,7 +136,7 @@ The implementation integrates with the Symbolizer to:
 
 ## 4. Log file handling
 
-The instrumentationHookLogMessage function in TSan Logging is responsible for writing detailed log entries to a file (instrumentationHookLog.txt). The following details explain how this process is handled based on the uploaded files and its integration within the runtime instrumentation.
+The tsanInterceptorsAndMemoryAccessOperationsLogging function in TSan Logging is responsible for writing detailed log entries to a file (`tsanLogFile.txt). The following details explain how this process is handled based on the uploaded files and its integration within the runtime instrumentation.
 
 ### a. Initialization of Log File
 The log file is initially opened in write-only mode (WrOnly) during the first invocation. A static variable, logClear, ensures the file is cleared only once at startup to avoid overwriting during runtime.
