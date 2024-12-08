@@ -3,7 +3,7 @@
 using namespace __tsan;
 using namespace __sanitizer;
 
-fd_t logFileFd = kInvalidFd;
+//fd_t logFileFd = kInvalidFd;
 static Mutex mtx;
 
 void __tsan::convertHexadecimalToString(unsigned long long valueToConvert, char *bufferString)
@@ -45,49 +45,49 @@ void __tsan::convertIntegerToDecimalString(unsigned long long valueToConvert, ch
 void __tsan::tsanInterceptorsAndMemoryAccessOperationsLogging(const char* logMessage, void *addr, ThreadState *thr, uptr callerpc, Tid tid)
 {
   static bool logClear = false;
-  int instrumentationHookLogFlag;
+  int tsanLogFlag;
 
   Lock l(&mtx);
   
   if (!logClear)
   {
    
-    instrumentationHookLogFlag = OpenFile("instrumentationHookLog.txt", WrOnly);
+    tsanLogFlag = OpenFile("tsanLogFile.txt", WrOnly);
     logClear = true;
   }
   else
   {
-    instrumentationHookLogFlag = OpenFile("instrumentationHookLog.txt", Append);
+    tsanLogFlag = OpenFile("tsanLogFile.txt", Append);
   }
 
-    if(instrumentationHookLogFlag != -1)
+    if(tsanLogFlag != -1)
     {
       if(thr->tid >= 0)
       {
         char threadIdBuf[30];
         convertIntegerToDecimalString((unsigned long long)thr->tid, threadIdBuf);
-        WriteToFile(instrumentationHookLogFlag, "Thread ", 7);
-        WriteToFile(instrumentationHookLogFlag, threadIdBuf, internal_strlen(threadIdBuf));        
+        WriteToFile(tsanLogFlag, "Thread ", 7);
+        WriteToFile(tsanLogFlag, threadIdBuf, internal_strlen(threadIdBuf));        
       }
 
-      WriteToFile(instrumentationHookLogFlag, logMessage, internal_strlen(logMessage));
+      WriteToFile(tsanLogFlag, logMessage, internal_strlen(logMessage));
 
       if(tid > 0)
       {
-        WriteToFile(instrumentationHookLogFlag, "(Thread ", 8);
+        WriteToFile(tsanLogFlag, "(Thread ", 8);
         char threadIdBuf1[30];
         convertIntegerToDecimalString((unsigned long long)tid, threadIdBuf1);
-        WriteToFile(instrumentationHookLogFlag, threadIdBuf1, internal_strlen(threadIdBuf1));
+        WriteToFile(tsanLogFlag, threadIdBuf1, internal_strlen(threadIdBuf1));
 
       }
       
       if( addr != nullptr)
       {
-        WriteToFile(instrumentationHookLogFlag, "|", 1);
+        WriteToFile(tsanLogFlag, "|", 1);
         char addrBuf[18] = "0x";
         convertHexadecimalToString((unsigned long long)addr, addrBuf + 2);
-        WriteToFile(instrumentationHookLogFlag, addrBuf, internal_strlen(addrBuf));
-        WriteToFile(instrumentationHookLogFlag, "|", 1);
+        WriteToFile(tsanLogFlag, addrBuf, internal_strlen(addrBuf));
+        WriteToFile(tsanLogFlag, "|", 1);
       
       }
 
@@ -103,10 +103,10 @@ void __tsan::tsanInterceptorsAndMemoryAccessOperationsLogging(const char* logMes
               const AddressInfo &info = frames->info;
               char lineBuf1[20];
               convertIntegerToDecimalString(info.line, lineBuf1);
-              WriteToFile(instrumentationHookLogFlag, " at line ", 9);
-              WriteToFile(instrumentationHookLogFlag, lineBuf1, internal_strlen(lineBuf1));
-              WriteToFile(instrumentationHookLogFlag, " in file ", 9);
-              WriteToFile(instrumentationHookLogFlag, info.file, internal_strlen(info.file));
+              WriteToFile(tsanLogFlag, " at line ", 9);
+              WriteToFile(tsanLogFlag, lineBuf1, internal_strlen(lineBuf1));
+              WriteToFile(tsanLogFlag, " in file ", 9);
+              WriteToFile(tsanLogFlag, info.file, internal_strlen(info.file));
             }
             else
             {
@@ -115,8 +115,8 @@ void __tsan::tsanInterceptorsAndMemoryAccessOperationsLogging(const char* logMes
           } 
       }
   
-      WriteToFile(instrumentationHookLogFlag, "\n", 1);
-      CloseFile(instrumentationHookLogFlag);
+      WriteToFile(tsanLogFlag, "\n", 1);
+      CloseFile(tsanLogFlag);
   }
   else
   {
