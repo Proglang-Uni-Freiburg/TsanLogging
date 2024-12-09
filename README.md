@@ -103,7 +103,7 @@ The TSan logging mechanism captures details about thread events and writes them 
 
 ## Key Components
 ## 1. Logging Functions
-All logging functions are encapsulated in the __tsan namespace, ensuring that they are scoped to TSan's internal implementation.
+All logging functions are encapsulated in the __tsan namespace, ensuring that they are scoped to TSan's internal implementation. Tsan Logging implementation files `tsan_logging.h` and `tsn_logging.cpp` are located at `compiler-rt/lib/tsan/rtl` in the project workspace
 
 ### a. tsanInterceptorsAndMemoryAccessOperationsLogging
 * Purpose: Logs a message with details about thread state, memory address, and caller information.
