@@ -105,7 +105,7 @@ void PrintStack(const ReportStack *ent) {
     Printf("    [failed to restore the stack]\n\n");
     return;
   }
-  Printf("Start PrintStack\n");
+  //Printf("Start PrintStack\n");
   SymbolizedStack *frame = ent->frames;
   for (int i = 0; frame && frame->info.address; frame = frame->next, i++) {
     InternalScopedString res;
@@ -123,7 +123,7 @@ void PrintStack(const ReportStack *ent) {
 }
 
 static void PrintMutexSet(Vector<ReportMopMutex> const& mset) {
-  Printf("void PrintMutexSet\n");
+  //Printf("void PrintMutexSet\n");
   for (uptr i = 0; i < mset.Size(); i++) {
     if (i == 0)
       Printf(" (mutexes:");
@@ -146,7 +146,7 @@ static const char *ExternalMopDesc(bool first, bool write) {
 }
 
 static void PrintMop(const ReportMop *mop, bool first) {
-  Printf("void PrintMop\n");
+  //Printf("void PrintMop\n");
   Decorator d;
   char thrbuf[kThreadBufSize];
   Printf("%s", d.Access());
@@ -170,7 +170,7 @@ static void PrintMop(const ReportMop *mop, bool first) {
 }
 
 static void PrintLocation(const ReportLocation *loc) {
-  Printf("void PrintLocation\n");
+  //Printf("void PrintLocation\n");
   Decorator d;
   char thrbuf[kThreadBufSize];
   bool print_stack = false;
@@ -219,21 +219,21 @@ static void PrintLocation(const ReportLocation *loc) {
 }
 
 static void PrintMutexShort(const ReportMutex *rm, const char *after) {
-  Printf("void PrintMutexShort\n");
+  //Printf("void PrintMutexShort\n");
   Decorator d;
   Printf("%sM%d%s%s", d.Mutex(), rm->id, d.Default(), after);
 }
 
 static void PrintMutexShortWithAddress(const ReportMutex *rm,
                                        const char *after) {
-  Printf("void PrintMutexShortWithAddress\n");
+  //Printf("void PrintMutexShortWithAddress\n");
   Decorator d;
   Printf("%sM%d (%p)%s%s", d.Mutex(), rm->id,
          reinterpret_cast<void *>(rm->addr), d.Default(), after);
 }
 
 static void PrintMutex(const ReportMutex *rm) {
-  Printf("void PrintMutex\n");
+  //Printf("void PrintMutex\n");
   Decorator d;
   Printf("%s", d.Mutex());
   Printf("  Mutex M%u (%p) created at:\n", rm->id,
@@ -243,7 +243,7 @@ static void PrintMutex(const ReportMutex *rm) {
 }
 
 static void PrintThread(const ReportThread *rt) {
-  Printf("void PrintThread\n");
+  //Printf("void PrintThread\n");
   Decorator d;
   if (rt->id == kMainTid)  // Little sense in describing the main thread.
     return;

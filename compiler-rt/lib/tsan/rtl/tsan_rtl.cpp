@@ -28,6 +28,8 @@
 #include "tsan_suppressions.h"
 #include "tsan_symbolize.h"
 #include "ubsan/ubsan_init.h"
+#include "tsan_logging.h"
+#include "unistd.h"
 
 volatile int __tsan_resumed = 0;
 
@@ -820,6 +822,10 @@ int Finalize(ThreadState *thr) {
     PrintMatchedSuppressions();
 
   failed = OnFinalize(failed);
+
+  sleep(2);
+
+  __tsan::dumpLogToFile();
 
   return failed ? common_flags()->exitcode : 0;
 }
