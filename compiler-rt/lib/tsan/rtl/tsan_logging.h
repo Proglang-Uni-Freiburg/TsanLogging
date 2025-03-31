@@ -22,13 +22,22 @@
 #include "sanitizer_common/sanitizer_file.h"
 
 namespace __tsan {
-
+struct LogEntry {
+    const char *message;
+    void *addr;
+    Tid tid;
+    uptr callerpc;
+    ThreadState *thr;
+    LogEntry *next;
+};
 
 void convertHexadecimalToString(unsigned long long valueToConvert, char *bufferString);
 
 void convertIntegerToDecimalString(unsigned long long valueToConvert, char *bufferString);
 
 void tsanInterceptorsAndMemoryAccessOperationsLogging(const char* logMessage, void *addr = nullptr, ThreadState *thr = nullptr, uptr callerpc = 0, Tid tid = (int)0); 
+
+void dumpLogToFile();
 
 }  // namespace __tsan
 
