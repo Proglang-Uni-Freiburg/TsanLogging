@@ -1,5 +1,42 @@
-Thread 0|Thread Create(Thread 1|0x00007fffffffdd10|
-Thread 1|Write|0x0000555556a65528| at line 6 in file /home/suraj/LLVM/llvm-project-main/sample.cpp
-Thread 0|Write|0x0000555556a65528| at line 13 in file /home/suraj/LLVM/llvm-project-main/sample.cpp
-Thread 0|Read|0x00007fffffffdd10| at line 14 in file /home/suraj/LLVM/llvm-project-main/sample.cpp
-Thread 0|Join(Thread 1|0x00007ffff40006c0|
+Thread 0: |Write|0x00007fffffffdd0c| at line 23 in file /home/suraj/LLVM/llvm-project-main/mutexLockUnlock.cpp
+Thread 0: |Write|0x00007fffffffdd10| at line 97 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_thread.h
+Thread 0: |Read|0x00007fffffffdd0c| at line 201 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x0000720800000008| at line 201 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x00007fffffffdaf0| at line 293 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Read|0x00007fffffffdaf0| at line 194 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x0000720800000010| at line 194 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x00007fffffffdc70| at line 191 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x00007fffffffdc70| at line 176 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unique_ptr.h
+Thread 0: |Thread Create (Thread 1)|0x00007fffffffdd10|
+Thread 1: |Read|0x0000720800000010| at line 61 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/invoke.h
+Thread 1: |Read|0x0000720800000008| at line 61 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/invoke.h
+Thread 1: |ACQ |0x0000555556a675e8| at line 1362 in file /home/suraj/LLVM/llvm-project-main/compiler-rt/lib/tsan/rtl/tsan_interceptors_posix.cpp
+Thread 1: |Write|0x0000555556a67610| at line 15 in file /home/suraj/LLVM/llvm-project-main/mutexLockUnlock.cpp
+Thread 1: |REL |0x0000555556a675e8| at line 1399 in file /home/suraj/LLVM/llvm-project-main/compiler-rt/lib/tsan/rtl/tsan_interceptors_posix.cpp
+Thread 0: |Read|0x00007fffffffdc70| at line 403 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unique_ptr.h
+Thread 0: |Write|0x00007fffffffdc70| at line 405 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unique_ptr.h
+Thread 0: |Write|0x00007fffffffdcfc| at line 24 in file /home/suraj/LLVM/llvm-project-main/mutexLockUnlock.cpp
+Thread 0: |Write|0x00007fffffffdd00| at line 97 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_thread.h
+Thread 0: |Read|0x00007fffffffdcfc| at line 201 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x0000720800000048| at line 201 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x00007fffffffdaf0| at line 293 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Read|0x00007fffffffdaf0| at line 194 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x0000720800000050| at line 194 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x00007fffffffdc70| at line 191 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/tuple
+Thread 0: |Write|0x00007fffffffdc70| at line 176 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unique_ptr.h
+Thread 0: |Thread Create (Thread 2)|0x00007fffffffdd00|
+Thread 2: |Read|0x0000720800000050| at line 61 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/invoke.h
+Thread 2: |Read|0x0000720800000048| at line 61 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/invoke.h
+Thread 2: |ACQ |0x0000555556a675e8| at line 1362 in file /home/suraj/LLVM/llvm-project-main/compiler-rt/lib/tsan/rtl/tsan_interceptors_posix.cpp
+Thread 2: |Write|0x0000555556a67610| at line 15 in file /home/suraj/LLVM/llvm-project-main/mutexLockUnlock.cpp
+Thread 2: |REL |0x0000555556a675e8| at line 1399 in file /home/suraj/LLVM/llvm-project-main/compiler-rt/lib/tsan/rtl/tsan_interceptors_posix.cpp
+Thread 2: |ACQ |0x0000555556a675e8| at line 1362 in file /home/suraj/LLVM/llvm-project-main/compiler-rt/lib/tsan/rtl/tsan_interceptors_posix.cpp
+Thread 2: |Write|0x0000555556a67610| at line 15 in file /home/suraj/LLVM/llvm-project-main/mutexLockUnlock.cpp
+Thread 2: |REL |0x0000555556a675e8| at line 1399 in file /home/suraj/LLVM/llvm-project-main/compiler-rt/lib/tsan/rtl/tsan_interceptors_posix.cpp
+Thread 0: |Read|0x00007fffffffdc70| at line 403 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unique_ptr.h
+Thread 0: |Write|0x00007fffffffdc70| at line 405 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unique_ptr.h
+Thread 0: |Join (Thread 1)|0x00007ffff43fe6c0|
+Thread 0: |Join (Thread 2)|0x00007ffff3bfd6c0|
+Thread 0: |Read|0x0000555556a67610| at line 31 in file /home/suraj/LLVM/llvm-project-main/mutexLockUnlock.cpp
+Thread 0: |Write|0x00007fffffffdc58| at line 97 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_thread.h
+Thread 0: |Write|0x00007fffffffdc58| at line 97 in file /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/std_thread.h
