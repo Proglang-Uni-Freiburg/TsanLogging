@@ -20,7 +20,7 @@ This guide outlines the steps to build the LLVM project with ThreadSanitizer (TS
 ### 1. Clone LLVM Project
 Ensure the LLVM source code is available. If not already cloned:
 ```bash
-git clone https://github.com/llvm/llvm-project.git
+git clone https://github.com/NikamSD/TSAN_Logging.git
 ```
 
 ### 2. Configure Build Using CMake
@@ -103,9 +103,9 @@ The TSan logging mechanism captures details about thread events and writes them 
 
 ## Key Components
 ## 1. Logging Functions
-All logging functions are encapsulated in the __tsan namespace, ensuring that they are scoped to TSan's internal implementation.
+All logging functions are encapsulated in the __tsan namespace, ensuring that they are scoped to TSan's internal implementation. Tsan Logging implementation files `tsan_logging.h` and `tsn_logging.cpp` are located at `compiler-rt/lib/tsan/rtl` in the project workspace
 
-### a. instrumentationHookLogMessage
+### a. tsanInterceptorsAndMemoryAccessOperationsLogging
 * Purpose: Logs a message with details about thread state, memory address, and caller information.
 * Parameters:
     * `logMessage`: Message to log.
@@ -118,10 +118,10 @@ All logging functions are encapsulated in the __tsan namespace, ensuring that th
   * Writes the thread ID (thr->tid) if available.
   * Logs the message and memory address (in hexadecimal format) if provided.
   * Uses a symbolizer to log file names and line numbers based on callerpc.
-### b. hexadecimalString
+### b. convertHexadecimalToString
 * Purpose: Converts an unsigned integer to its hexadecimal string representation.
 * Usage: Converts memory addresses for logging.
-### c. intToDecStr
+### c. convertIntegerToDecimalString
 * Purpose: Converts an unsigned integer to its decimal string representation.
 * Usage: Converts thread IDs and other numerical data for logging.
 
@@ -134,22 +134,21 @@ The implementation integrates with the Symbolizer to:
 * Retrieve the file name and line number associated with a given program counter (callerpc).
 * Provide detailed contextual information for debugging.
 
+## 4. Log file handling
 
-## 5. Log file handling
-
-The instrumentationHookLogMessage function in TSan Logging is responsible for writing detailed log entries to a file (instrumentationHookLog.txt). The following details explain how this process is handled based on the uploaded files and its integration within the runtime instrumentation.
+The tsanInterceptorsAndMemoryAccessOperationsLogging function in TSan Logging is responsible for writing detailed log entries to a file (`tsanLogFile.txt). The following details explain how this process is handled based on the uploaded files and its integration within the runtime instrumentation.
 
 ### a. Initialization of Log File
-The log file is initially opened in write-only mode (WrOnly) during the first invocation. A static variable logClear ensures the file is cleared only once at startup to avoid overwriting during runtime.
+The log file is initially opened in write-only mode (WrOnly) during the first invocation. A static variable, logClear, ensures the file is cleared only once at startup to avoid overwriting during runtime.
 Subsequent log entries append to the file using the append mode (Append).
 
 ```bash
 
 if (!logClear) {
-    instrumentationHookLogFlag = OpenFile("instrumentationHookLog.txt", WrOnly);
+    tsanLogFlag = OpenFile("tsanLogFile.txt", WrOnly);
     logClear = true;
 } else {
-    instrumentationHookLogFlag = OpenFile("instrumentationHookLog.txt", Append);
+    tsanLogFlag = OpenFile("tsanLogFile.txt", Append);
 }
 
 ```
@@ -177,17 +176,17 @@ The function instrumentationHookLogMessage is used in multiple interceptors to l
 Logs when a thread is created or joined, capturing the thread ID and associated resources.
 Example: pthread_create and pthread_join use this function to log their events.
 ```bash
-__tsan::instrumentationHookLogMessage("|Thread Create", (void*)th, thr, 0, p.tid);
+__tsan::tsanInterceptorsAndMemoryAccessOperationsLogging("|Thread Create", (void*)th, thr, 0, p.tid);
 ```
 #### Mutex Lock/Unlock:
 Logs mutex acquisition (pthread_mutex_lock) and release (pthread_mutex_unlock) operations.
 ```bash
-__tsan::instrumentationHookLogMessage("|ACQ ", m, thr, pc);
-__tsan::instrumentationHookLogMessage("|REL ", m, thr, PC);
+__tsan::tsanInterceptorsAndMemoryAccessOperationsLogging("|ACQ ", m, thr, pc);
+__tsan::tsanInterceptorsAndMemoryAccessOperationsLogging("|REL ", m, thr, PC);
 ```
 
 #### Memory Access Operation (Read/Write)
-instrumentationHookLogMessage is used within tsan_read and tsan_write instrumentation hooks to log information during memory read and write operations. This log helps in identifying threads that access shared memory simultaneously.
+`tsanInterceptorsAndMemoryAccessOperationsLogging` is used within tsan_read and tsan_write instrumentation hooks to log information during memory read and write operations. This log helps in identifying threads that access shared memory simultaneously.
 
 #### Note: Integration with interceptor is in `tsan_posix_interceptor.cpp` and memory access operation in `tsan_interface.inc`
 
@@ -207,9 +206,9 @@ Thread 2|Join|0x7ffd123abc(Thread 3)
 #### Memory Access Operations:
 ```bash
 // Log the read operation
-    __tsan::instrumentationHookLogMessage("|READ ", addr, thr, callerpc, thr->tid);
+    __tsan::tsanInterceptorsAndMemoryAccessOperationsLogging("|READ ", addr, thr, callerpc, thr->tid);
 
 // Log the write operation.
-    __tsan::instrumentationHookLogMessage("|WRITE", addr, thr, callerpc, thr->tid);
+    __tsan::tsanInterceptorsAndMemoryAccessOperationsLogging("|WRITE", addr, thr, callerpc, thr->tid);
 ```
 
