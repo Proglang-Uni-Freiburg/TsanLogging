@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Restart Job"
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v3.2.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #v3.2.0
         with:
           script: |
             const failure_regex = /Process completed with exit code 1./
