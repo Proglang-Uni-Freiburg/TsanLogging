@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-22.04
     if: github.repository == 'llvm/llvm-project'
     steps:
-      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 #v4.1.6
+      - uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a #v4.1.6
       - name: "Run Audit Script"
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -33,7 +33,7 @@ jobs:
         if: >-
           github.event_name != 'pull_request' &&
           failure()
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd #v3.2.0
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 #v3.2.0
         with:
           github-token: ${{ secrets.ISSUE_SUBSCRIBER_TOKEN }}
           script: |
